@@ -56,7 +56,6 @@ export default function QuizPage() {
       key={round}
       round={round}
       onNextRound={handleNextRound}
-      onQuizComplete={handleQuizComplete}
-    />
+      onQuizComplete={handleQuizComplete} teamName={''}    />
   )
 }
