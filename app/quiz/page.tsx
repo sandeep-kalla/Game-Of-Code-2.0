@@ -59,13 +59,15 @@ function QuizContent() {
     router.push('/results')
   }
 
+  const teamName = localStorage.getItem('teamName') || ''; // Get team name
+
   return (
     <ModernInteractiveQuizComponent
       key={round}
       round={round}
+      teamName={teamName} // Pass teamName as a prop
       onNextRound={handleNextRound}
       onQuizComplete={handleQuizComplete}
-      teamName={''}
     />
   );
 }
