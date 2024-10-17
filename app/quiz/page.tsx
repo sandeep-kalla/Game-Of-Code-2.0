@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ModernInteractiveQuizComponent } from '@/components/modern-interactive-quiz'
 import { db } from '@/lib/firebase'
@@ -8,16 +8,24 @@ import { collection, addDoc } from 'firebase/firestore'
 import { toast } from 'react-hot-toast'
 
 export default function QuizPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <QuizContent />
+    </Suspense>
+  );
+}
+
+function QuizContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [round, setRound] = useState(1)
 
   useEffect(() => {
-    const roundParam = searchParams.get('round')
+    const roundParam = searchParams?.get('round'); // Use optional chaining
     if (roundParam) {
-      setRound(parseInt(roundParam, 10))
+      setRound(parseInt(roundParam, 10));
     }
-  }, [searchParams])
+  }, [searchParams]);
 
   const storeScore = async (roundNumber: number, score: number) => {
     const teamName = localStorage.getItem('teamName')
@@ -56,6 +64,8 @@ export default function QuizPage() {
       key={round}
       round={round}
       onNextRound={handleNextRound}
-      onQuizComplete={handleQuizComplete} teamName={''}    />
-  )
+      onQuizComplete={handleQuizComplete}
+      teamName={''}
+    />
+  );
 }
