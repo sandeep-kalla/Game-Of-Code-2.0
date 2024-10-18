@@ -6,6 +6,11 @@ import { ModernInteractiveQuizComponent } from '@/components/modern-interactive-
 import { db } from '@/lib/firebase'
 import { collection, addDoc } from 'firebase/firestore'
 import { toast } from 'react-hot-toast'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Game Of Code 2.0',
+}
 
 export default function QuizPage() {
   return (
